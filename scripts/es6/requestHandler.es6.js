@@ -5,7 +5,7 @@ class requestHandler {
         req.onreadystatechange = () => {
             if (req.readyState === XMLHttpRequest.DONE) {
                 if (req.status === 200) {
-                    var res;
+                    let res;
                     if(req.responseXML) {
                         let parser = new DOMParser();
                         res = parser.parseFromString(req.responseXML, 'application/xml');
@@ -22,6 +22,22 @@ class requestHandler {
             return this.indexOf(x) >= 0;
         }
         req.open('GET', url);
+        //new request for map json
+        let mapReq = new XMLHttpRequest();
+        mapReq.onreadystatechange = () => {
+            if (mapReq === XMLHttpRequest.DONE) {
+                if ( mapReq.status === 200) {
+                    //tu wiemy ze chcemy Jsona to od razu go obslugujemy
+                    let mapRes = JSON.parse(mapRes.responseText);
+                    //callback dla mapy,
+                } else {
+                    console.log('map error');
+                }
+            }
+        }
+        mapReq.open('GET', 'maps/maps.json');
+        mapReq.send(null);
+                        
         let contentMap = new Map();
         contentMap.set('text/plain', ['txt', 'rtf']);
         contentMap.set('text/json', ['json']);
@@ -35,6 +51,7 @@ class requestHandler {
          
         req.send(null);
     }
+        
 }
 
 module.exports = requestHandler;
