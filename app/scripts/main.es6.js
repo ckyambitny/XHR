@@ -11,7 +11,9 @@ xhr.fetch('./data/data1.json', () => {
     console.error('[FAILED] ./data/data1.json');
 });
 
-xhr.fetch('./data/data2.xml', () => {
+let xhr2 = new RequestHandler();
+
+xhr2.fetch('./data/data2.xml', () => {
     console.info('[DONE] ./data/data2.xml');
 }, () => {
     console.error('[FAILED] ./data/data2.xml');
