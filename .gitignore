@@ -1,3 +1,4 @@
-node_modules
-scripts/dist
+/node_modules
+/app/dist
+
 *.hot-update.*
