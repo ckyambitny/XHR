@@ -1,16 +1,13 @@
-const mimeTypes = {
-    "text/plain": ["txt", "rtf"],
-    "text/json": ["json"],
-    "application/xml": ["xml"]
-};
+let mimeType = {};
 
 export default class RequestHandler {
     constructor() {
-        this.mimeTypesMap = new Map();
         this.request = new XMLHttpRequest();
     }
 
-    fetch(url, successCallback = () => {}, errorCallback = () => {}) {
+    fetch(url, successCallback = () => {
+    }, errorCallback = () => {
+    }) {
         this.request.onreadystatechange = () => {
             if (this.request.readyState === XMLHttpRequest.DONE) {
                 if (this.request.status === 200) {
@@ -23,7 +20,7 @@ export default class RequestHandler {
 
         this.request.open('GET', url);
 
-        // this._updateContentTypeHeader(url);
+        this._updateContentTypeHeader(url);
 
         this.request.send(null);
     }
@@ -43,11 +40,22 @@ export default class RequestHandler {
 
     _updateContentTypeHeader(url) {
         let fileType = url.split('.').pop();
+        let mimeTypesMap = new Map();
 
-        for (let [key, value] of this.mimeTypesMap) {
+        for (let mimeType in mimeType) {
+            if (mimeType.hasOwnProperty(mimeType)) {
+                mimeTypesMap.set(mimeType, mimeType[mimeType]);
+            }
+        }
+
+        for (let [key, value] of mimeTypesMap) {
             if (value.includes(fileType)) {
                 this.request.setRequestHeader('Content-Type', key);
             }
         }
+    }
+
+    static parseJSON(json) {
+        mimeType = json;
     }
 }
