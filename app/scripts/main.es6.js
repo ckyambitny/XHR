@@ -1,16 +1,16 @@
 'use strict';
 
-window.mimeType = {
-    "text/plain": ["txt", "rtf"],
-    "text/json": ["json"],
-    "application/xml": ["xml"]
-};
 window.addEventListener('load', () => {
+    let mimeTypes = {
+        "text/plain": ["txt", "rtf"],
+        "text/json": ["json"],
+        "application/xml": ["xml"]
+    };  
     let _setHeader = (url) => {
         let fileType = url.split('.').pop();
         let mimeTypesMap = new Map();
         let header = new Headers();  
-        for (let mimeType in mimeType) {
+        for (let mimeType in mimeTypes) {
             if (mimeType.hasOwnProperty(mimeType)) {
                 mimeTypesMap.set(mimeType, mimeType[mimeType]);
             }
