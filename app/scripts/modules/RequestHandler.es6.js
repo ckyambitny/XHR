@@ -5,24 +5,24 @@ export default class RequestHandler {
         this.request = new XMLHttpRequest();
     }
 
-    fetch(url, successCallback = () => {
-    }, errorCallback = () => {
-    }) {
-        this.request.onreadystatechange = () => {
-            if (this.request.readyState === XMLHttpRequest.DONE) {
-                if (this.request.status === 200) {
-                    successCallback(this.request, this._parseResponse());
-                } else {
-                    errorCallback(this.request);
+    fetch(url) {
+        return new Promise( (resolve, reject) => {
+            this.request.onreadystatechange = () => {
+                if (this.request.readyState === XMLHttpRequest.DONE) {
+                    if (this.request.status === 200) {
+                        resolve(this.request, this._parseResponse());
+                    } else {
+                        reject(this.request);
+                    }
                 }
-            }
-        };
+            };
 
-        this.request.open('GET', url);
+            this.request.open('GET', url);
 
-        this._updateContentTypeHeader(url);
+            this._updateContentTypeHeader(url);
 
-        this.request.send(null);
+            this.request.send(null);
+        });
     }
 
     _parseResponse() {
