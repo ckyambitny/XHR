@@ -1,4 +1,6 @@
-/node_modules
-/app/dist
+node_modules/
+npm-debug.log
+
+app/dist/
 
 *.hot-update.*
